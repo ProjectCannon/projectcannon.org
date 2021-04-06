@@ -40,18 +40,16 @@
         
         let buff = "";
         function connectServer() {
-            ws = new WebSocket("ws://localhost:8080/");
+            ws = new WebSocket("ws://cannon.alexisok/dev:8080/");
             ws.onmessage = (m) => {buff += "\n" + m.data;document.getElementById("textarea").innerText = buff;document.getElementById("textarea").scrollTo(100000, 100000)}
             ws.onopen = () => {isConnected = "true"};
         }
     </script>
 </head>
 <body>
-<h1>Project Cannon Alpha - a unique way to talk.</h1>
-<h2>NOTE: data is NOT sent securely to the WebSocket.</h2>
-<h3>Contact AlexIsOK on the <a href="https://discord.alexisok.dev/">Discord Server</a> if you want an account.</h3>
+<h1>Project Cannon Alpha - a...<i>unique</i> way to talk.</h1>
+<h2>Contact AlexIsOK on the <a href="https://discord.alexisok.dev/">Discord Server</a> if you want an account.</h2>
 <p>Viewing this on mobile will give you a terrible experience.  Make a pr if you know how to fix it please :D</p>
-<p>This is a proof of concept, I made it in 10 minutes.  Don't expect good design from a back end dev.</p>
 <p style="width: 70vw; height: 50vh; border: 2px white solid; overflow-y: scroll" id="textarea"></p>
 <br><br>
 <button onclick="connectServer(); document.getElementById('connectbutton').hidden = true" id="connectbutton">Connect to Server</button>
