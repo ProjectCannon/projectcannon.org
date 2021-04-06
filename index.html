@@ -41,7 +41,7 @@
         let buff = "";
         function connectServer() {
             // don't mind this vps ip addr
-            ws = new WebSocket("ws://64.225.31.42:8080/");
+            ws = new WebSocket("wss://cannon.alexisok.dev:8080/");
             ws.onmessage = (m) => {buff += "\n" + m.data;document.getElementById("textarea").innerText = buff;document.getElementById("textarea").scrollTo(100000, 100000)}
             ws.onopen = () => {isConnected = "true"};
         }
