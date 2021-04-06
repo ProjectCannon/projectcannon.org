@@ -62,6 +62,10 @@
                 }
             }
             ws.onopen = () => {isConnected = "true"};
+            
+            setInterval(() => {
+                ws.send("//KEEP-ALIVE");
+            }, 2000);
         }
         
         function enabledn() {
@@ -88,7 +92,7 @@
 </head>
 <body>
 <h1>Project Cannon Alpha - a...<i>unique</i> way to talk.</h1>
-<h2>Contact AlexIsOK on the <a href="https://discord.alexisok.dev/">Discord Server</a> if you want an account.</h2>
+<h2>Contact AlexIsOK on the <a href="https://discord.alexisok.dev/">Discord Server</a> if you want an account, otherwise use the username and password "guest".</h2>
 <p>Viewing this on mobile will give you a terrible experience.  Make a pr if you know how to fix it please :D</p>
 <p style="width: 70vw; height: 50vh; border: 2px white solid; overflow-y: scroll" id="textarea"></p>
 <br><br>
@@ -98,5 +102,6 @@
 <p>and press enter to send (it'll auto clear)</p>
 <p>Due to me being lazy the IP address will appear as ::fffffffff:: something and something like 108.162.215.229 but that's a cloudflare ip address</p>
 <button onclick="enabledn()">Enable desktop notifications for stuff</button>
+<h2><a href="https://discord.alexisok.dev">Questions or feedback?  Ask/say here!</a></h2>
 </body>
 </html>
