@@ -38,12 +38,51 @@
             }
         }
         
+        let is = "true";
+        
+        window.onblur = () => {is = "false";}
+        window.onfocus = () => {is = "true";}
+        
         let buff = "";
         function connectServer() {
             // don't mind this vps ip addr
             ws = new WebSocket("wss://cannonws.alexisok.dev");
-            ws.onmessage = (m) => {buff += "\n" + m.data;document.getElementById("textarea").innerText = buff;document.getElementById("textarea").scrollTo(100000, 100000)}
+            ws.onmessage = (m) => {
+                buff += "\n" + m.data;
+                document.getElementById("textarea").innerText = buff;
+                document.getElementById("textarea").scrollTo(100000, 100000);
+                if(Notification.permission === "granted") {
+                    //don't send notifications to someone who doesn't need them
+                    console.log(is)
+                    if(is === "true")
+                        return;
+                    new Notification("Project Cannon", {
+                        body: m.data
+                    });
+                }
+            }
             ws.onopen = () => {isConnected = "true"};
+        }
+        
+        function enabledn() {
+            if (!window.Notification) {
+                alert('upgrade ur browser 4 notificationz');
+            } else {
+                if (Notification.permission === 'granted') {
+                    
+                } else {
+                    // request permission from user
+                    Notification.requestPermission().then(function(p) {
+                        if(p === 'granted') {
+                            // show notification here
+                        } else {
+                            console.log('User blocked notifications.');
+                        }
+                    }).catch(function(err) {
+                        console.error(err);
+                    });
+                }
+            }
         }
     </script>
 </head>
@@ -58,5 +97,6 @@
 <input type="text" id="message" style="background-color: black; color: white;" onkeypress="checkEnter(event);">
 <p>and press enter to send (it'll auto clear)</p>
 <p>Due to me being lazy the IP address will appear as ::fffffffff:: something and something like 108.162.215.229 but that's a cloudflare ip address</p>
+<button onclick="enabledn()">Enable desktop notifications for stuff</button>
 </body>
 </html>
