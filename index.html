@@ -40,7 +40,7 @@
         
         let buff = "";
         function connectServer() {
-            ws = new WebSocket("ws://cannonws.alexisok/dev:8080/");
+            ws = new WebSocket("ws://cannonws.alexisok.dev:8080/");
             ws.onmessage = (m) => {buff += "\n" + m.data;document.getElementById("textarea").innerText = buff;document.getElementById("textarea").scrollTo(100000, 100000)}
             ws.onopen = () => {isConnected = "true"};
         }
