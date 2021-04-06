@@ -1,0 +1,63 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <title>Project Cannon Alpha</title>
+    <style>
+        body {
+            background-color: black;
+        }
+        h1, h2, h3, h4, h5, h6, p {
+            color: white;
+        }
+        a {
+            color: white;
+        }
+    </style>
+    <script>
+        
+        let isConnected = "false";
+        
+        let ws;
+        
+        function checkEnter(e) {
+            if(e.keyCode === 13) {
+                e.preventDefault();
+                
+                //clear original value
+                let val = document.getElementById("message").value;
+                document.getElementById("message").value = "";
+                
+                if(val === "")
+                    return;
+                
+                if(isConnected === "false")
+                    return;
+                
+                ws.send(val);
+            }
+        }
+        
+        let buff = "";
+        function connectServer() {
+            ws = new WebSocket("ws://localhost:8080/");
+            ws.onmessage = (m) => {buff += "\n" + m.data;document.getElementById("textarea").innerText = buff;document.getElementById("textarea").scrollTo(100000, 100000)}
+            ws.onopen = () => {isConnected = "true"};
+        }
+    </script>
+</head>
+<body>
+<h1>Project Cannon Alpha - a unique way to talk.</h1>
+<h2>NOTE: data is NOT sent securely to the WebSocket.</h2>
+<h3>Contact AlexIsOK on the <a href="https://discord.alexisok.dev/">Discord Server</a> if you want an account.</h3>
+<p>Viewing this on mobile will give you a terrible experience.  Make a pr if you know how to fix it please :D</p>
+<p>This is a proof of concept, I made it in 10 minutes.  Don't expect good design from a back end dev.</p>
+<p style="width: 70vw; height: 50vh; border: 2px white solid; overflow-y: scroll" id="textarea"></p>
+<br><br>
+<button onclick="connectServer(); document.getElementById('connectbutton').hidden = true" id="connectbutton">Connect to Server</button>
+<label for="message" style="color: white">Send a message or command:</label>
+<input type="text" id="message" style="background-color: black; color: white;" onkeypress="checkEnter(event);">
+<p>and press enter to send (it'll auto clear)</p>
+<p>Note that your IP address will be sent to the server when you click the connect button.  I don't look at or log IPs but it does display your IP address to you when you login.</p>
+</body>
+</html>
