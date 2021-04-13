@@ -2,4 +2,4 @@
 
 Demo for the Cannon Client
 
-https://cannon.alexisok.dev/
+https://projectcannon.org/
